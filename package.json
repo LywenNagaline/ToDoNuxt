@@ -1,0 +1,15 @@
+{
+  "name": "rnd-ms-tab-nuxt-laurie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:tab": "pnpm --filter tab dev",
+    "start:bot": "pnpm --filter bot dev",
+    "start:api": "pnpm --filter api dev" 
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,58 @@
+<head>
+  <script src="https://res.cdn.office.net/teams-js/2.2.0/js/MicrosoftTeams.min.js" 
+    integrity="sha384yBjE++eHeBPzIg+IKl9OHFqMbSdrzY2S/LW3qeitc5vqXewEYRWegByWzBN/chRh" 
+    crossorigin="anonymous" >
+  </script>
+<body>
+  <button onclick="(document.getElementById('icon').src = '/images/iconGray.png'); colorClickGray()">Select Gray</button>
+  <img id="icon" src="/images/teamsIcon.png" alt="icon" style="width:100px" />
+  <button onclick="(document.getElementById('icon').src = '/images/iconRed.png'); colorClickRed()">Select Red</button>
+
+  <script>
+      await microsoftTeams.app.initialize();
+      let saveGray = () => {
+          microsoftTeams.pages.config.registerOnSaveHandler((saveEvent) => {
+              const configPromise = pages.config.setConfig({
+                  websiteUrl: "https://localhost:3000/config",
+                  contentUrl: "https://localhost:3000/config/gray",
+                  entityId: "grayIconTab",
+                  suggestedDisplayName: "MyNewTab"
+              });
+              configPromise.
+                  then((result) => {saveEvent.notifySuccess()}).
+                  catch((error) => {saveEvent.notifyFailure("failure message")});
+          });
+      }
+
+      let saveRed = () => {
+          microsoftTeams.pages.config.registerOnSaveHandler((saveEvent) => {
+              const configPromise = pages.config.setConfig({
+                  websiteUrl: "https://localhost:3000/config",
+                  contentUrl: "https://localhost:3000/config/red",
+                  entityId: "redIconTab",
+                  suggestedDisplayName: "MyNewTab"
+              });
+              configPromise.
+                  then((result) => {saveEvent.notifySuccess();}).
+                  catch((error) => {saveEvent.notifyFailure("failure message")});
+          });
+      }
+
+      let gr = document.getElementById("gray").style;
+      let rd = document.getElementById("red").style;
+
+      const colorClickGray = () => {
+          gr.display = "block";
+          rd.display = "none";
+          microsoftTeams.pages.config.setValidityState(true);
+          saveGray()
+      }
+
+      const colorClickRed = () => {
+          rd.display = "block";
+          gr.display = "none";
+          microsoftTeams.pages.config.setValidityState(true);
+          saveRed();
+      }
+  </script>
+</body>
